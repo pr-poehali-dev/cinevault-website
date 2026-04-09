@@ -153,21 +153,21 @@ export default function CollectionPage() {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
           {collection.movies.map((movie, i) => {
-            const isOpen = expandedId === movie.id;
+            const hasPage = !!movie.slug;
             return (
               <div
                 key={movie.id}
-                onClick={() => setExpandedId(isOpen ? null : movie.id)}
+                onClick={() => hasPage ? navigate(`/movies/${movie.slug}`) : setExpandedId(expandedId === movie.id ? null : movie.id)}
                 style={{
                   background: "#111",
-                  border: `1px solid ${isOpen ? "rgba(212,175,55,0.4)" : "#1e1e1e"}`,
+                  border: `1px solid ${expandedId === movie.id ? "rgba(212,175,55,0.4)" : "#1e1e1e"}`,
                   borderRadius: 3,
                   overflow: "hidden",
                   cursor: "pointer",
                   transition: "border-color 0.2s, transform 0.2s",
                 }}
-                onMouseEnter={(e) => { if (!isOpen) e.currentTarget.style.borderColor = "rgba(212,175,55,0.25)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                onMouseLeave={(e) => { if (!isOpen) e.currentTarget.style.borderColor = "#1e1e1e"; e.currentTarget.style.transform = "translateY(0)"; }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(212,175,55,0.25)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = expandedId === movie.id ? "rgba(212,175,55,0.4)" : "#1e1e1e"; e.currentTarget.style.transform = "translateY(0)"; }}
               >
                 {/* Постер */}
                 <div style={{ position: "relative", height: 300, overflow: "hidden" }}>
@@ -222,8 +222,8 @@ export default function CollectionPage() {
                     Реж. {movie.director}
                   </div>
 
-                  {/* Раскрывающееся описание */}
-                  {isOpen && (
+                  {/* Описание если нет отдельной страницы */}
+                  {!hasPage && expandedId === movie.id && (
                     <div style={{ marginTop: 12, borderTop: "1px solid #1e1e1e", paddingTop: 12 }}>
                       {movie.cast && (
                         <div className="font-body" style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", marginBottom: 8 }}>
@@ -239,10 +239,19 @@ export default function CollectionPage() {
                   )}
 
                   <div style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 4 }}>
-                    <span className="font-body" style={{ fontSize: 11, color: isOpen ? "#D4AF37" : "rgba(255,255,255,0.25)" }}>
-                      {isOpen ? "Скрыть" : "Подробнее"}
-                    </span>
-                    <Icon name={isOpen ? "ChevronUp" : "ChevronDown"} size={12} style={{ color: isOpen ? "#D4AF37" : "rgba(255,255,255,0.25)" }} />
+                    {hasPage ? (
+                      <>
+                        <span className="font-body" style={{ fontSize: 11, color: "#D4AF37" }}>Открыть фильм</span>
+                        <Icon name="ArrowRight" size={12} style={{ color: "#D4AF37" }} />
+                      </>
+                    ) : (
+                      <>
+                        <span className="font-body" style={{ fontSize: 11, color: expandedId === movie.id ? "#D4AF37" : "rgba(255,255,255,0.25)" }}>
+                          {expandedId === movie.id ? "Скрыть" : "Подробнее"}
+                        </span>
+                        <Icon name={expandedId === movie.id ? "ChevronUp" : "ChevronDown"} size={12} style={{ color: expandedId === movie.id ? "#D4AF37" : "rgba(255,255,255,0.25)" }} />
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

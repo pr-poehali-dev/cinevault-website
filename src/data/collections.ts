@@ -5,6 +5,7 @@ const SCI_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1
 
 export interface CollectionMovie {
   id: number;
+  slug?: string;
   title: string;
   year: number;
   director: string;
@@ -30,7 +31,8 @@ export interface Collection {
 }
 
 const defaultMovies: CollectionMovie[] = [
-  { id: 1, title: "Исчезновение", year: 2024, director: "Дэвид Финчер", rating: 5, img: HERO_IMG, tags: ["Триллер", "Детектив"], duration: "2ч 18м", genre: "Триллер", cast: "Кейт Бланшетт, Оскар Айзек", description: "Детектив расследует исчезновение молодой женщины в маленьком городке. Каждый подозреваемый скрывает правду, но только один — убийственную." },
+  { id: 1, slug: "oppenheimer-2023", title: "Оппенгеймер", year: 2023, director: "Кристофер Нолан", rating: 5, img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/06b44759-748e-4a19-8732-4c64e1365f3f.jpg", tags: ["Биография", "Драма"], duration: "3ч 00м", genre: "Драма", cast: "Киллиан Мёрфи, Роберт Дауни мл.", description: "Создатель атомной бомбы — между триумфом науки и ужасом последствий." },
+  { id: 11, title: "Исчезновение", year: 2024, director: "Дэвид Финчер", rating: 5, img: HERO_IMG, tags: ["Триллер", "Детектив"], duration: "2ч 18м", genre: "Триллер", cast: "Кейт Бланшетт, Оскар Айзек", description: "Детектив расследует исчезновение молодой женщины в маленьком городке. Каждый подозреваемый скрывает правду, но только один — убийственную." },
   { id: 2, title: "Горизонт", year: 2025, director: "Кристофер Нолан", rating: 5, img: SCI_IMG, tags: ["Фантастика", "Эпик"], duration: "2ч 45м", genre: "Фантастика", cast: "Киллиан Мёрфи, Зендая", description: "Экипаж межзвёздной экспедиции обнаруживает на краю галактики сигнал, который меняет всё, что человечество знало о своём происхождении." },
   { id: 3, title: "Тёмный лес", year: 2024, director: "Ари Астер", rating: 4, img: NOIR_IMG, tags: ["Ужасы", "Драма"], duration: "1ч 58м", genre: "Хоррор", cast: "Флоренс Пью, Джек Рейнор", description: "Семья переезжает в загородный дом, окружённый лесом. С каждой ночью тишина снаружи становится всё более угрожающей." },
   { id: 4, title: "Последний рейс", year: 2023, director: "П.Т. Андерсон", rating: 5, img: WEEK_IMG, tags: ["Драма"], duration: "2ч 30м", genre: "Драма", cast: "Хоакин Феникс, Риз Уизерспун", description: "Пилот на пенсии соглашается на один последний рейс через Атлантику. За эти восемь часов перевернётся его жизнь." },
