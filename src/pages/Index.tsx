@@ -524,6 +524,191 @@ export default function Index() {
         </div>
       </section>
 
+      {/* ── ТРЕЙЛЕРЫ ── */}
+      <section
+        className="px-6 md:px-16 py-20"
+        style={{ borderTop: "1px solid #1a1a1a" }}
+      >
+        <div className="flex items-center justify-between mb-10">
+          <div>
+            <div
+              className="font-body mb-2"
+              style={{ color: "#D4AF37", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase" }}
+            >
+              ✦ Смотрите первыми
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl gold-line" style={{ fontWeight: 700 }}>
+              Трейлеры
+            </h2>
+          </div>
+          <button
+            className="font-body hidden md:flex items-center gap-2"
+            style={{ color: "#D4AF37", fontSize: 13, letterSpacing: "0.08em", background: "none", border: "none", cursor: "pointer" }}
+          >
+            Все трейлеры <Icon name="ArrowRight" size={16} />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            {
+              id: 1,
+              title: "Громовержец",
+              year: 2026,
+              genre: "Боевик",
+              duration: "2:34",
+              img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/439ce577-8d46-4d3a-91af-9e03b105c9da.jpg",
+            },
+            {
+              id: 2,
+              title: "Неон-Сити",
+              year: 2026,
+              genre: "Фантастика",
+              duration: "3:01",
+              img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/6bc636ab-4436-4e2b-b77d-093c67d5130a.jpg",
+            },
+            {
+              id: 3,
+              title: "Тёмный порог",
+              year: 2026,
+              genre: "Ужасы",
+              duration: "1:58",
+              img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/bd369821-4798-4b02-8f22-9765dd76cd80.jpg",
+            },
+            {
+              id: 4,
+              title: "Последний закат",
+              year: 2026,
+              genre: "Драма",
+              duration: "2:17",
+              img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/125bd6bd-ced9-4877-a4e3-4144dd6af374.jpg",
+            },
+          ].map((trailer) => (
+            <div
+              key={trailer.id}
+              className="cursor-pointer group"
+              style={{ position: "relative" }}
+              onClick={() => {}}
+            >
+              {/* Картинка */}
+              <div
+                className="relative overflow-hidden rounded-sm"
+                style={{
+                  height: 200,
+                  border: "1px solid #2A2A2A",
+                  transition: "border-color 0.3s",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "#D4AF37";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "#2A2A2A";
+                }}
+              >
+                <img
+                  src={trailer.img}
+                  alt={trailer.title}
+                  className="w-full h-full object-cover"
+                  style={{ transition: "transform 0.5s ease", filter: "brightness(0.75)" }}
+                  onMouseEnter={(e) => {
+                    (e.target as HTMLImageElement).style.transform = "scale(1.06)";
+                    (e.target as HTMLImageElement).style.filter = "brightness(0.55)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.target as HTMLImageElement).style.transform = "scale(1)";
+                    (e.target as HTMLImageElement).style.filter = "brightness(0.75)";
+                  }}
+                />
+
+                {/* Градиент */}
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 50%)" }}
+                />
+
+                {/* Кнопка Play */}
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ transition: "opacity 0.2s" }}
+                >
+                  <div
+                    style={{
+                      width: 52,
+                      height: 52,
+                      borderRadius: "50%",
+                      background: "rgba(212,175,55,0.15)",
+                      border: "2px solid #D4AF37",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backdropFilter: "blur(4px)",
+                      transition: "background 0.2s, transform 0.2s",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.background = "rgba(212,175,55,0.35)";
+                      (e.currentTarget as HTMLDivElement).style.transform = "scale(1.1)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.background = "rgba(212,175,55,0.15)";
+                      (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
+                    }}
+                  >
+                    <Icon name="Play" size={20} style={{ color: "#D4AF37", marginLeft: 3 }} />
+                  </div>
+                </div>
+
+                {/* Длительность */}
+                <div
+                  className="absolute bottom-2 right-2 font-body"
+                  style={{
+                    background: "rgba(0,0,0,0.7)",
+                    color: "rgba(255,255,255,0.7)",
+                    fontSize: 11,
+                    padding: "2px 7px",
+                    borderRadius: 2,
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  {trailer.duration}
+                </div>
+
+                {/* Жанр */}
+                <div
+                  className="absolute top-2 left-2 font-body"
+                  style={{
+                    background: "rgba(212,175,55,0.15)",
+                    border: "1px solid rgba(212,175,55,0.3)",
+                    color: "#D4AF37",
+                    fontSize: 10,
+                    padding: "2px 8px",
+                    borderRadius: 2,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {trailer.genre}
+                </div>
+              </div>
+
+              {/* Подпись */}
+              <div className="mt-3">
+                <h3
+                  className="font-display"
+                  style={{ fontSize: 16, fontWeight: 600, color: "#fff", lineHeight: 1.3, transition: "color 0.2s" }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#D4AF37")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#fff")}
+                >
+                  {trailer.title}
+                </h3>
+                <span className="font-body" style={{ color: "rgba(255,255,255,0.35)", fontSize: 12 }}>
+                  {trailer.year} · Официальный трейлер
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ── ЖАНРЫ ── */}
       <section
         className="px-6 md:px-16 py-20"
