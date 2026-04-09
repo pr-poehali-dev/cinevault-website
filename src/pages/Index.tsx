@@ -14,7 +14,14 @@ const NOIR_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba
 
 
 
-const navLinks = ["Главная", "Подборки", "Жанры", "Рецензии", "Новости"];
+const navLinks = [
+  { label: "Главная", path: "/" },
+  { label: "Подборки", path: "/collections" },
+  { label: "Жанры", path: "/genre/trillery" },
+  { label: "Рецензии", path: "/reviews" },
+  { label: "Новости", path: "/news" },
+  { label: "Трейлеры", path: "/trailers" },
+];
 
 export default function Index() {
   const navigate = useNavigate();
@@ -57,12 +64,12 @@ export default function Index() {
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <button
-              key={link}
-              onClick={() => setActiveNav(link)}
+              key={link.label}
+              onClick={() => { setActiveNav(link.label); navigate(link.path); }}
               className="nav-link font-body"
-              style={activeNav === link ? { color: "#D4AF37" } : {}}
+              style={activeNav === link.label ? { color: "#D4AF37" } : {}}
             >
-              {link}
+              {link.label}
             </button>
           ))}
         </nav>
@@ -108,12 +115,12 @@ export default function Index() {
         >
           {navLinks.map((link) => (
             <button
-              key={link}
-              onClick={() => { setActiveNav(link); setMobileMenuOpen(false); }}
+              key={link.label}
+              onClick={() => { setActiveNav(link.label); setMobileMenuOpen(false); navigate(link.path); }}
               className="font-display text-2xl"
-              style={{ color: activeNav === link ? "#D4AF37" : "#fff", background: "none", border: "none", cursor: "pointer" }}
+              style={{ color: activeNav === link.label ? "#D4AF37" : "#fff", background: "none", border: "none", cursor: "pointer" }}
             >
-              {link}
+              {link.label}
             </button>
           ))}
           <div className="flex items-center gap-2 mt-4" style={{ position: "relative" }}>
