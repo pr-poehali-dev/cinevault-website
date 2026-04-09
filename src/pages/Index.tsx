@@ -17,7 +17,7 @@ const NOIR_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba
 const navLinks = [
   { label: "Главная", path: "/" },
   { label: "Подборки", path: "/collections" },
-  { label: "Жанры", path: "/genre/trillery" },
+  { label: "Жанры", path: "/#genres" },
   { label: "Рецензии", path: "/reviews" },
   { label: "Новости", path: "/news" },
   { label: "Трейлеры", path: "/trailers" },
@@ -65,7 +65,14 @@ export default function Index() {
           {navLinks.map((link) => (
             <button
               key={link.label}
-              onClick={() => { setActiveNav(link.label); navigate(link.path); }}
+              onClick={() => {
+                setActiveNav(link.label);
+                if (link.path.startsWith("/#")) {
+                  const id = link.path.slice(2);
+                  if (window.location.pathname !== "/") { navigate("/"); setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 300); }
+                  else document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                } else { navigate(link.path); }
+              }}
               className="nav-link font-body"
               style={activeNav === link.label ? { color: "#D4AF37" } : {}}
             >
@@ -116,7 +123,15 @@ export default function Index() {
           {navLinks.map((link) => (
             <button
               key={link.label}
-              onClick={() => { setActiveNav(link.label); setMobileMenuOpen(false); navigate(link.path); }}
+              onClick={() => {
+                setActiveNav(link.label);
+                setMobileMenuOpen(false);
+                if (link.path.startsWith("/#")) {
+                  const id = link.path.slice(2);
+                  if (window.location.pathname !== "/") { navigate("/"); setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 300); }
+                  else document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                } else { navigate(link.path); }
+              }}
               className="font-display text-2xl"
               style={{ color: activeNav === link.label ? "#D4AF37" : "#fff", background: "none", border: "none", cursor: "pointer" }}
             >
@@ -638,6 +653,7 @@ export default function Index() {
 
       {/* ── ЖАНРЫ ── */}
       <section
+        id="genres"
         className="px-6 md:px-16 py-20"
         style={{ borderTop: "1px solid #1a1a1a" }}
       >
