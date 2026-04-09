@@ -171,62 +171,71 @@ export default function CollectionsPage() {
           </span>
         </div>
 
-        {/* ── ГОРИЗОНТАЛЬНЫЕ КАРТОЧКИ ── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        {/* ── СЕТКА КАРТОЧЕК ── */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
           {collections.map((col, i) => (
             <div
               key={col.id}
               onClick={() => navigate(`/collections/${col.slug}`)}
               style={{
-                display: "grid",
-                gridTemplateColumns: "200px 1fr auto",
-                alignItems: "center",
-                gap: 0,
-                background: "transparent",
-                border: "none",
-                borderBottom: "1px solid #141414",
-                padding: "20px 0",
+                background: "#111",
+                border: "1px solid #1e1e1e",
+                borderRadius: 3,
+                overflow: "hidden",
                 cursor: "pointer",
-                transition: "background 0.15s",
-                borderRadius: 2,
+                transition: "border-color 0.2s, transform 0.2s",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#111";
-                e.currentTarget.style.paddingLeft = "12px";
-                e.currentTarget.style.paddingRight = "12px";
+                e.currentTarget.style.borderColor = "rgba(212,175,55,0.4)";
+                e.currentTarget.style.transform = "translateY(-3px)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.paddingLeft = "0";
-                e.currentTarget.style.paddingRight = "0";
+                e.currentTarget.style.borderColor = "#1e1e1e";
+                e.currentTarget.style.transform = "translateY(0)";
               }}
             >
               {/* Изображение */}
-              <div style={{ position: "relative", height: 100, width: 180, overflow: "hidden", borderRadius: 2, flexShrink: 0 }}>
+              <div style={{ position: "relative", height: 200, overflow: "hidden" }}>
                 <img
                   src={col.img}
                   alt={col.title}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
+                  onMouseEnter={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1.05)")}
+                  onMouseLeave={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1)")}
                 />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #111 0%, transparent 60%)" }} />
                 {col.isWeekly && (
                   <div
                     className="font-body"
                     style={{
-                      position: "absolute", bottom: 6, left: 6,
+                      position: "absolute", top: 12, left: 12,
                       background: "#D4AF37", color: "#0A0A0A",
-                      fontSize: 8, padding: "2px 7px",
-                      letterSpacing: "0.12em", textTransform: "uppercase",
-                      borderRadius: 1, fontWeight: 700,
+                      fontSize: 9, padding: "3px 10px",
+                      letterSpacing: "0.14em", textTransform: "uppercase",
+                      borderRadius: 2, fontWeight: 700,
                     }}
                   >
-                    Недели
+                    Подборка недели
                   </div>
                 )}
+                <div
+                  className="font-body"
+                  style={{
+                    position: "absolute", bottom: 10, right: 10,
+                    background: "rgba(0,0,0,0.7)",
+                    border: "1px solid #2a2a2a",
+                    color: "#D4AF37",
+                    fontSize: 10, padding: "3px 10px",
+                    borderRadius: 2,
+                  }}
+                >
+                  {col.count} фильмов
+                </div>
               </div>
 
               {/* Контент */}
-              <div style={{ padding: "0 28px" }}>
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
+              <div style={{ padding: "20px 22px 22px" }}>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
                   {col.tags.map((t) => (
                     <span
                       key={t}
@@ -237,28 +246,16 @@ export default function CollectionsPage() {
                     </span>
                   ))}
                 </div>
-                <h3 className="font-display" style={{ fontSize: "clamp(1rem, 1.8vw, 1.25rem)", fontWeight: 600, lineHeight: 1.25, marginBottom: 8 }}>
+                <h3 className="font-display" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.3rem)", fontWeight: 700, lineHeight: 1.25, marginBottom: 10 }}>
                   {col.title}
                 </h3>
-                <p className="font-body" style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.65, maxWidth: 520 }}>
+                <p className="font-body" style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.65, marginBottom: 18 }}>
                   {col.desc}
                 </p>
-              </div>
-
-              {/* Правая часть */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12, minWidth: 100, paddingLeft: 16 }}>
-                <span className="font-body" style={{ fontSize: 11, color: "rgba(255,255,255,0.25)", letterSpacing: "0.06em" }}>
-                  {col.count} фильмов
-                </span>
                 <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <span className="font-body" style={{ fontSize: 12, color: "#D4AF37", letterSpacing: "0.06em" }}>
-                    Смотреть
-                  </span>
+                  <span className="font-body" style={{ fontSize: 12, color: "#D4AF37", letterSpacing: "0.06em" }}>Смотреть</span>
                   <Icon name="ArrowRight" size={13} style={{ color: "#D4AF37" }} />
                 </div>
-                <span className="font-body" style={{ fontSize: 10, color: "rgba(255,255,255,0.15)" }}>
-                  #{String(i + 1).padStart(2, "0")}
-                </span>
               </div>
             </div>
           ))}
