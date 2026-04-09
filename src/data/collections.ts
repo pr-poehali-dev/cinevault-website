@@ -12,6 +12,9 @@ export interface CollectionMovie {
   img: string;
   tags: string[];
   duration: string;
+  genre?: string;
+  cast?: string;
+  description?: string;
 }
 
 export interface Collection {
@@ -27,14 +30,14 @@ export interface Collection {
 }
 
 const defaultMovies: CollectionMovie[] = [
-  { id: 1, title: "Исчезновение", year: 2024, director: "А. Финчер", rating: 5, img: HERO_IMG, tags: ["Триллер", "Детектив"], duration: "2ч 18м" },
-  { id: 2, title: "Горизонт", year: 2025, director: "К. Нолан", rating: 5, img: SCI_IMG, tags: ["Фантастика", "Эпик"], duration: "2ч 45м" },
-  { id: 3, title: "Тёмный лес", year: 2024, director: "А. Астер", rating: 4, img: NOIR_IMG, tags: ["Ужасы", "Драма"], duration: "1ч 58м" },
-  { id: 4, title: "Последний рейс", year: 2023, director: "П.Т. Андерсон", rating: 5, img: WEEK_IMG, tags: ["Драма"], duration: "2ч 30м" },
-  { id: 5, title: "Пустота", year: 2025, director: "Й. Вильнёв", rating: 4, img: HERO_IMG, tags: ["Sci-Fi", "Триллер"], duration: "2ч 12м" },
-  { id: 6, title: "Долгая ночь", year: 2022, director: "М. Хэнеке", rating: 5, img: NOIR_IMG, tags: ["Арт-хаус", "Драма"], duration: "1ч 47м" },
-  { id: 7, title: "Нить", year: 2023, director: "Д. Финчер", rating: 4, img: SCI_IMG, tags: ["Детектив", "Триллер"], duration: "2ч 05м" },
-  { id: 8, title: "Холодный свет", year: 2024, director: "Г. дель Торо", rating: 4, img: WEEK_IMG, tags: ["Фэнтези", "Ужасы"], duration: "1ч 52м" },
+  { id: 1, title: "Исчезновение", year: 2024, director: "Дэвид Финчер", rating: 5, img: HERO_IMG, tags: ["Триллер", "Детектив"], duration: "2ч 18м", genre: "Триллер", cast: "Кейт Бланшетт, Оскар Айзек", description: "Детектив расследует исчезновение молодой женщины в маленьком городке. Каждый подозреваемый скрывает правду, но только один — убийственную." },
+  { id: 2, title: "Горизонт", year: 2025, director: "Кристофер Нолан", rating: 5, img: SCI_IMG, tags: ["Фантастика", "Эпик"], duration: "2ч 45м", genre: "Фантастика", cast: "Киллиан Мёрфи, Зендая", description: "Экипаж межзвёздной экспедиции обнаруживает на краю галактики сигнал, который меняет всё, что человечество знало о своём происхождении." },
+  { id: 3, title: "Тёмный лес", year: 2024, director: "Ари Астер", rating: 4, img: NOIR_IMG, tags: ["Ужасы", "Драма"], duration: "1ч 58м", genre: "Хоррор", cast: "Флоренс Пью, Джек Рейнор", description: "Семья переезжает в загородный дом, окружённый лесом. С каждой ночью тишина снаружи становится всё более угрожающей." },
+  { id: 4, title: "Последний рейс", year: 2023, director: "П.Т. Андерсон", rating: 5, img: WEEK_IMG, tags: ["Драма"], duration: "2ч 30м", genre: "Драма", cast: "Хоакин Феникс, Риз Уизерспун", description: "Пилот на пенсии соглашается на один последний рейс через Атлантику. За эти восемь часов перевернётся его жизнь." },
+  { id: 5, title: "Пустота", year: 2025, director: "Дени Вильнёв", rating: 4, img: HERO_IMG, tags: ["Sci-Fi", "Триллер"], duration: "2ч 12м", genre: "Фантастика", cast: "Тимоти Шаламе, Кейт Бланшетт", description: "Астронавт возвращается с задания в одиночестве. Он не помнит, что произошло на станции, но тело помнит всё." },
+  { id: 6, title: "Долгая ночь", year: 2022, director: "Михаэль Ханеке", rating: 5, img: NOIR_IMG, tags: ["Арт-хаус", "Драма"], duration: "1ч 47м", genre: "Драма", cast: "Изабель Юппер, Даниэль Отой", description: "Двое незнакомцев оказываются заперты в одном доме во время бурана. За одну ночь они скажут друг другу то, что боялись сказать всю жизнь." },
+  { id: 7, title: "Нить", year: 2023, director: "Дэвид Финчер", rating: 4, img: SCI_IMG, tags: ["Детектив", "Триллер"], duration: "2ч 05м", genre: "Детектив", cast: "Майкл Фассбендер, Руни Мара", description: "Частный детектив берётся за дело о краже, которое оказывается верхушкой айсберга. Следуя за нитью, он приходит туда, куда лучше было не возвращаться." },
+  { id: 8, title: "Холодный свет", year: 2024, director: "Гильермо дель Торо", rating: 4, img: WEEK_IMG, tags: ["Фэнтези", "Ужасы"], duration: "1ч 52м", genre: "Фэнтези", cast: "Ана де Армас, Дуглас Бут", description: "В городе, где солнце не заходит летом, начинают пропадать люди. Молодая художница находит связь между исчезновениями и своими ночными рисунками." },
 ];
 
 export const collections: Collection[] = [

@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Icon from "@/components/ui/icon";
 import { getCollectionBySlug, collections } from "@/data/collections";
 
@@ -7,6 +7,7 @@ export default function CollectionPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const collection = getCollectionBySlug(slug || "");
+  const [expandedId, setExpandedId] = useState<number | null>(null);
 
   useEffect(() => {
     if (collection) {
@@ -141,79 +142,112 @@ export default function CollectionPage() {
         </div>
       </div>
 
-      {/* ── ФИЛЬМЫ ГОРИЗОНТАЛЬНЫЕ КАРТОЧКИ ── */}
+      {/* ── ФИЛЬМЫ — СЕТКА КАРТОЧЕК ── */}
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 24px" }}>
         <div
           className="font-body"
-          style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginBottom: 24 }}
+          style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginBottom: 28 }}
         >
-          Фильмы в подборке
+          Фильмы в подборке · {collection.movies.length} фильмов
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {collection.movies.map((movie, i) => (
-            <div
-              key={movie.id}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "48px 130px 1fr auto",
-                alignItems: "center",
-                gap: 0,
-                borderBottom: "1px solid #141414",
-                padding: "16px 0",
-                cursor: "pointer",
-                borderRadius: 2,
-                transition: "background 0.15s, padding 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#111";
-                e.currentTarget.style.paddingLeft = "12px";
-                e.currentTarget.style.paddingRight = "12px";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.paddingLeft = "0";
-                e.currentTarget.style.paddingRight = "0";
-              }}
-            >
-              {/* Номер */}
-              <div className="font-display" style={{ fontSize: 20, fontWeight: 700, color: "rgba(255,255,255,0.08)", width: 40, flexShrink: 0 }}>
-                {String(i + 1).padStart(2, "0")}
-              </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
+          {collection.movies.map((movie, i) => {
+            const isOpen = expandedId === movie.id;
+            return (
+              <div
+                key={movie.id}
+                onClick={() => setExpandedId(isOpen ? null : movie.id)}
+                style={{
+                  background: "#111",
+                  border: `1px solid ${isOpen ? "rgba(212,175,55,0.4)" : "#1e1e1e"}`,
+                  borderRadius: 3,
+                  overflow: "hidden",
+                  cursor: "pointer",
+                  transition: "border-color 0.2s, transform 0.2s",
+                }}
+                onMouseEnter={(e) => { if (!isOpen) e.currentTarget.style.borderColor = "rgba(212,175,55,0.25)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                onMouseLeave={(e) => { if (!isOpen) e.currentTarget.style.borderColor = "#1e1e1e"; e.currentTarget.style.transform = "translateY(0)"; }}
+              >
+                {/* Постер */}
+                <div style={{ position: "relative", height: 300, overflow: "hidden" }}>
+                  <img
+                    src={movie.img}
+                    alt={movie.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
+                    onMouseEnter={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1.04)")}
+                    onMouseLeave={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1)")}
+                  />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #111 0%, transparent 55%)" }} />
 
-              {/* Постер */}
-              <div style={{ width: 110, height: 72, overflow: "hidden", borderRadius: 2, flexShrink: 0 }}>
-                <img src={movie.img} alt={movie.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              </div>
+                  {/* Номер */}
+                  <div className="font-display" style={{ position: "absolute", top: 10, left: 12, fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.25)" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
 
-              {/* Инфо */}
-              <div style={{ padding: "0 24px" }}>
-                <div style={{ display: "flex", gap: 6, marginBottom: 6, flexWrap: "wrap" }}>
-                  {movie.tags.map((t) => (
-                    <span key={t} className="font-body" style={{ fontSize: 9, color: "rgba(212,175,55,0.55)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                      {t}
+                  {/* Рейтинг */}
+                  <div style={{ position: "absolute", top: 10, right: 10, display: "flex", gap: 1 }}>
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <span key={s} style={{ color: s < movie.rating ? "#D4AF37" : "rgba(255,255,255,0.12)", fontSize: 10 }}>★</span>
+                    ))}
+                  </div>
+
+                  {/* Жанр */}
+                  {movie.genre && (
+                    <div
+                      className="font-body"
+                      style={{
+                        position: "absolute", bottom: 10, left: 10,
+                        background: "rgba(212,175,55,0.12)",
+                        border: "1px solid rgba(212,175,55,0.25)",
+                        color: "#D4AF37", fontSize: 9,
+                        padding: "2px 8px", borderRadius: 2,
+                        letterSpacing: "0.1em", textTransform: "uppercase",
+                      }}
+                    >
+                      {movie.genre}
+                    </div>
+                  )}
+                </div>
+
+                {/* Основная инфа */}
+                <div style={{ padding: "14px 16px 16px" }}>
+                  <h3 className="font-display" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.25, marginBottom: 6 }}>
+                    {movie.title}
+                  </h3>
+                  <div className="font-body" style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginBottom: 4 }}>
+                    {movie.year} · {movie.duration}
+                  </div>
+                  <div className="font-body" style={{ fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
+                    Реж. {movie.director}
+                  </div>
+
+                  {/* Раскрывающееся описание */}
+                  {isOpen && (
+                    <div style={{ marginTop: 12, borderTop: "1px solid #1e1e1e", paddingTop: 12 }}>
+                      {movie.cast && (
+                        <div className="font-body" style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", marginBottom: 8 }}>
+                          <span style={{ color: "rgba(212,175,55,0.6)" }}>В ролях:</span> {movie.cast}
+                        </div>
+                      )}
+                      {movie.description && (
+                        <p className="font-body" style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>
+                          {movie.description}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  <div style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 4 }}>
+                    <span className="font-body" style={{ fontSize: 11, color: isOpen ? "#D4AF37" : "rgba(255,255,255,0.25)" }}>
+                      {isOpen ? "Скрыть" : "Подробнее"}
                     </span>
-                  ))}
-                </div>
-                <div className="font-display" style={{ fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)", fontWeight: 600, marginBottom: 4 }}>
-                  {movie.title}
-                </div>
-                <div className="font-body" style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
-                  {movie.director} · {movie.year} · {movie.duration}
+                    <Icon name={isOpen ? "ChevronUp" : "ChevronDown"} size={12} style={{ color: isOpen ? "#D4AF37" : "rgba(255,255,255,0.25)" }} />
+                  </div>
                 </div>
               </div>
-
-              {/* Рейтинг */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6, minWidth: 80 }}>
-                <div style={{ display: "flex", gap: 2 }}>
-                  {Array.from({ length: 5 }).map((_, s) => (
-                    <span key={s} style={{ color: s < movie.rating ? "#D4AF37" : "rgba(255,255,255,0.1)", fontSize: 11 }}>★</span>
-                  ))}
-                </div>
-                <span className="font-body" style={{ fontSize: 10, color: "rgba(255,255,255,0.2)" }}>{movie.duration}</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
