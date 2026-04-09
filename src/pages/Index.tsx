@@ -94,6 +94,7 @@ const genres = [
   { name: "Криминал", icon: "🎩", count: 44 },
   { name: "Военный", icon: "🎖️", count: 37 },
   { name: "Фэнтези", icon: "🐉", count: 52 },
+  { name: "Документальный", icon: "🎥", count: 41 },
 ];
 
 const navLinks = ["Главная", "Подборки", "Жанры", "Рецензии", "Новости"];
