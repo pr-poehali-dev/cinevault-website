@@ -626,9 +626,7 @@ export default function Index() {
               <div
                 className="font-body mb-1"
                 style={{ color: "#D4AF37", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}
-              >
-                ✦ Новый раздел
-              </div>
+              ></div>
               <h3
                 className="font-display"
                 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 700, color: "#fff", lineHeight: 1.2 }}
