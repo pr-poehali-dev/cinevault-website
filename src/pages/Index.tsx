@@ -823,6 +823,7 @@ export default function Index() {
 
           <button
             className="font-body font-semibold flex-shrink-0"
+            onClick={() => navigate("/series")}
             style={{
               background: "#D4AF37",
               color: "#0A0A0A",
