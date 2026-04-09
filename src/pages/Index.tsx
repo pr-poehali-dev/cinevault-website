@@ -1011,7 +1011,7 @@ export default function Index() {
                 Не знаете, <strong style={{ color: "#6a6a6a", fontWeight: 500 }}>что посмотреть</strong>? У нас десятки тематических подборок: от <strong style={{ color: "#6a6a6a", fontWeight: 500 }}>лучших триллеров</strong> до <strong style={{ color: "#6a6a6a", fontWeight: 500 }}>тихих драм</strong>. Мы отбираем фильмы по жанрам, настроению и платформам — Netflix, Кинопоиск, Apple TV+.
               </p>
               <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, lineHeight: 1.8, color: "#555", marginTop: 12, marginBottom: 0 }}>
-                <strong style={{ color: "#6a6a6a", fontWeight: 500 }}>Лучшие фильмы 2025 года</strong>, недооценённые шедевры, <strong style={{ color: "#6a6a6a", fontWeight: 500 }}>корейское кино</strong> и авторское кино от студий{" "}
+                <strong style={{ color: "#6a6a6a", fontWeight: 500 }}>Лучшие фильмы 2026 года</strong>, недооценённые шедевры, <strong style={{ color: "#6a6a6a", fontWeight: 500 }}>корейское кино</strong> и авторское кино от студий{" "}
                 <a href="#" style={{ color: "#D4AF37", textDecoration: "none", opacity: 0.8 }}>A24</a>, NEON и Mubi.
               </p>
             </div>
