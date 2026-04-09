@@ -3,35 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { genres } from "@/data/genres";
 import { collections, weeklyCollection } from "@/data/collections";
+import { reviews } from "@/data/reviews";
 
 const HERO_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/0e25810d-e02e-44a1-bb9b-83a7a0354af8.jpg";
 const WEEK_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/06b44759-748e-4a19-8732-4c64e1365f3f.jpg";
 const NOIR_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/ee289538-68dd-470f-8d6e-ac7a98007c74.jpg";
-
-const reviews = [
-  {
-    id: 1,
-    title: "Оппенгеймер",
-    year: 2023,
-    director: "Кристофер Нолан",
-    rating: 5,
-    img: WEEK_IMG,
-    excerpt:
-      "Монументальная биографическая эпопея Нолана превращает историю создания атомной бомбы в захватывающий психологический триллер, где каждый кадр — произведение искусства.",
-    genre: "Биография / Драма",
-  },
-  {
-    id: 2,
-    title: "Прошлые жизни",
-    year: 2023,
-    director: "Селин Сон",
-    rating: 4,
-    img: NOIR_IMG,
-    excerpt:
-      "Тонкая, почти бесплотная история о двух людях, чьи судьбы пересекаются через десятилетия. Кино, которое остаётся с тобой навсегда.",
-    genre: "Мелодрама",
-  },
-];
 
 const news = [
   {
@@ -849,17 +825,19 @@ export default function Index() {
           <button
             className="font-body hidden md:flex items-center gap-2"
             style={{ color: "#D4AF37", fontSize: 13, letterSpacing: "0.08em", background: "none", border: "none", cursor: "pointer" }}
+            onClick={() => navigate("/reviews")}
           >
             Все рецензии <Icon name="ArrowRight" size={16} />
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {reviews.map((rev) => (
+          {reviews.slice(0, 2).map((rev) => (
             <div
               key={rev.id}
               className="card-hover cursor-pointer rounded-sm overflow-hidden"
               style={{ background: "#141414", border: "1px solid #2A2A2A", display: "flex", flexDirection: "column" }}
+              onClick={() => navigate(`/reviews/${rev.slug}`)}
             >
               <div className="relative overflow-hidden" style={{ height: 260 }}>
                 <img
@@ -911,6 +889,7 @@ export default function Index() {
                     letterSpacing: "0.04em",
                     padding: 0,
                   }}
+                  onClick={(e) => { e.stopPropagation(); navigate(`/reviews/${rev.slug}`); }}
                 >
                   Читать рецензию <Icon name="ArrowRight" size={14} />
                 </button>
