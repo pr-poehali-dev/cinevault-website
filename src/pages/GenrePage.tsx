@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import { genres, getGenreBySlug } from "@/data/genres";
 
@@ -11,6 +11,19 @@ export default function GenrePage() {
   const genre = getGenreBySlug(slug || "");
   const [sort, setSort] = useState("По рейтингу");
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (genre?.seo) {
+      document.title = genre.seo.title;
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute("content", genre.seo.metaDescription);
+    } else if (genre) {
+      document.title = `${genre.name} — подборки фильмов | CineVault`;
+    }
+    return () => {
+      document.title = "CineVault — Лучшие подборки фильмов, рецензии и новинки кино 2026 | Что посмотреть";
+    };
+  }, [genre]);
 
   if (!genre) {
     return (
@@ -318,6 +331,87 @@ export default function GenrePage() {
           </div>
         )}
       </div>
+
+      {/* ── SEO ТЕКСТ ── */}
+      {genre.seo && (
+        <div style={{ backgroundColor: "#0A0A0A", padding: "60px 24px" }}>
+          <div style={{ maxWidth: 860, margin: "0 auto" }}>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 40 }}>
+              <div style={{ flex: 1, height: 1, background: "linear-gradient(to right, transparent, #1e1e1e)" }} />
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "#2e2e2e", whiteSpace: "nowrap" }}>О ЖАНРЕ</span>
+              <div style={{ flex: 1, height: 1, background: "linear-gradient(to left, transparent, #1e1e1e)" }} />
+            </div>
+
+            {/* H1 SEO */}
+            <h1 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(1.4rem, 3vw, 2rem)",
+              fontWeight: 700,
+              color: "#4a4a4a",
+              lineHeight: 1.3,
+              marginBottom: 20,
+            }}>
+              {genre.seo.h1}
+            </h1>
+
+            {/* Вводный текст */}
+            {genre.seo.intro.split("\n\n").map((para, i) => (
+              <p key={i} style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: 15,
+                lineHeight: 1.85,
+                color: "#555",
+                marginBottom: 16,
+                paddingLeft: i === 0 ? 20 : 0,
+                borderLeft: i === 0 ? "2px solid #1e1e1e" : "none",
+              }}>
+                {para}
+              </p>
+            ))}
+
+            {/* Секции H2 */}
+            <div style={{ marginTop: 40, display: "flex", flexDirection: "column", gap: 32 }}>
+              {genre.seo.sections.map((section, i) => (
+                <div key={i}>
+                  <h2 style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    color: "#D4AF37",
+                    opacity: 0.65,
+                    marginBottom: 12,
+                  }}>
+                    {section.heading}
+                  </h2>
+                  {section.text.split("\n\n").map((para, j) => (
+                    <p key={j} style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: 14,
+                      lineHeight: 1.85,
+                      color: "#555",
+                      marginBottom: 10,
+                    }}>
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 48 }}>
+              <div style={{ flex: 1, height: 1, background: "linear-gradient(to right, transparent, #1e1e1e)" }} />
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "#2a2a2a", whiteSpace: "nowrap", letterSpacing: "0.04em" }}>
+                <strong style={{ color: "#D4AF37", opacity: 0.5 }}>CineVault</strong>
+                <span style={{ color: "#222" }}> — кино, достойное вашего времени</span>
+              </span>
+              <div style={{ flex: 1, height: 1, background: "linear-gradient(to left, transparent, #1e1e1e)" }} />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── ДРУГИЕ ЖАНРЫ ── */}
       <div
