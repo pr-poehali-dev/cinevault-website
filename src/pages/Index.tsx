@@ -4,6 +4,7 @@ import Icon from "@/components/ui/icon";
 import { genres } from "@/data/genres";
 import { collections, weeklyCollection } from "@/data/collections";
 
+const HERO_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/0e25810d-e02e-44a1-bb9b-83a7a0354af8.jpg";
 const WEEK_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/06b44759-748e-4a19-8732-4c64e1365f3f.jpg";
 const NOIR_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/ee289538-68dd-470f-8d6e-ac7a98007c74.jpg";
 
