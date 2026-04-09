@@ -1246,12 +1246,13 @@ export default function Index() {
               Разделы
             </h4>
             {navLinks.map((l) => (
-              <div key={l} className="mb-2">
+              <div key={l.label} className="mb-2">
                 <button
                   className="font-body text-sm nav-link"
+                  onClick={() => navigate(l.path)}
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.5)", padding: 0 }}
                 >
-                  {l}
+                  {l.label}
                 </button>
               </div>
             ))}
