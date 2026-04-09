@@ -581,6 +581,96 @@ export default function Index() {
             </button>
           ))}
         </div>
+
+        {/* ── СЕРИАЛЫ БАННЕР ── */}
+        <div
+          className="mt-6 cursor-pointer relative overflow-hidden rounded-sm"
+          style={{
+            background: "linear-gradient(105deg, #1a1400 0%, #0f0c00 40%, #141414 100%)",
+            border: "1px solid #D4AF37",
+            padding: "36px 48px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 24,
+            boxShadow: "0 0 40px rgba(212,175,55,0.08), inset 0 0 60px rgba(212,175,55,0.03)",
+            transition: "box-shadow 0.3s ease, transform 0.3s ease",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 60px rgba(212,175,55,0.18), inset 0 0 60px rgba(212,175,55,0.05)";
+            (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 40px rgba(212,175,55,0.08), inset 0 0 60px rgba(212,175,55,0.03)";
+            (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
+          }}
+        >
+          {/* Декоративный элемент */}
+          <div
+            style={{
+              position: "absolute",
+              right: -40,
+              top: -40,
+              width: 200,
+              height: 200,
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%)",
+              pointerEvents: "none",
+            }}
+          />
+
+          <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+            <span style={{ fontSize: 48, lineHeight: 1 }}>📺</span>
+            <div>
+              <div
+                className="font-body mb-1"
+                style={{ color: "#D4AF37", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 600 }}
+              >
+                ✦ Новый раздел
+              </div>
+              <h3
+                className="font-display"
+                style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 700, color: "#fff", lineHeight: 1.2 }}
+              >
+                Сериалы
+              </h3>
+              <p
+                className="font-body mt-1"
+                style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, lineHeight: 1.6, maxWidth: 480 }}
+              >
+                Лучшие сериалы со всего мира — от HBO до корейских дорам. Подборки, рецензии и рейтинги сезонов.
+              </p>
+            </div>
+          </div>
+
+          <button
+            className="font-body font-semibold flex-shrink-0"
+            style={{
+              background: "#D4AF37",
+              color: "#0A0A0A",
+              border: "none",
+              borderRadius: 3,
+              padding: "14px 36px",
+              fontSize: 13,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              transition: "background 0.2s, transform 0.2s",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLButtonElement).style.background = "#E8C84A";
+              (e.target as HTMLButtonElement).style.transform = "scale(1.04)";
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLButtonElement).style.background = "#D4AF37";
+              (e.target as HTMLButtonElement).style.transform = "scale(1)";
+            }}
+          >
+            Смотреть сериалы
+          </button>
+        </div>
       </section>
 
       {/* ── РЕЦЕНЗИИ ── */}
