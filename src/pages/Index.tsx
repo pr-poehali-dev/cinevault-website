@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import { genres } from "@/data/genres";
 
 const HERO_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/0e25810d-e02e-44a1-bb9b-83a7a0354af8.jpg";
 const WEEK_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/06b44759-748e-4a19-8732-4c64e1365f3f.jpg";
@@ -85,24 +87,12 @@ const news = [
   },
 ];
 
-const genres = [
-  { name: "Триллеры", icon: "🔪", count: 87 },
-  { name: "Драмы", icon: "🎭", count: 134 },
-  { name: "Ужасы", icon: "👻", count: 62 },
-  { name: "Фантастика", icon: "🚀", count: 95 },
-  { name: "Комедии", icon: "😄", count: 73 },
-  { name: "Боевики", icon: "💥", count: 110 },
-  { name: "Детективы", icon: "🔍", count: 49 },
-  { name: "Анимация", icon: "✨", count: 58 },
-  { name: "Криминал", icon: "🎩", count: 44 },
-  { name: "Военный", icon: "🎖️", count: 37 },
-  { name: "Фэнтези", icon: "🐉", count: 52 },
-  { name: "Документальный", icon: "🎥", count: 41 },
-];
+
 
 const navLinks = ["Главная", "Подборки", "Жанры", "Рецензии", "Новости"];
 
 export default function Index() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [email, setEmail] = useState("");
@@ -732,6 +722,7 @@ export default function Index() {
           {genres.map((g) => (
             <button
               key={g.name}
+              onClick={() => navigate(`/genre/${g.slug}`)}
               className="card-hover text-left cursor-pointer rounded-sm"
               style={{
                 background: "#141414",
