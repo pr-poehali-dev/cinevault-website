@@ -4,37 +4,13 @@ import Icon from "@/components/ui/icon";
 import { genres } from "@/data/genres";
 import { collections, weeklyCollection } from "@/data/collections";
 import { reviews } from "@/data/reviews";
+import { newsItems } from "@/data/news";
 
 const HERO_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/0e25810d-e02e-44a1-bb9b-83a7a0354af8.jpg";
 const WEEK_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/06b44759-748e-4a19-8732-4c64e1365f3f.jpg";
 const NOIR_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/ee289538-68dd-470f-8d6e-ac7a98007c74.jpg";
 
-const news = [
-  {
-    id: 1,
-    date: "8 апреля 2026",
-    tag: "Фестивали",
-    title: "Канны 2026: объявлена программа основного конкурса",
-    excerpt: "В этом году конкурс поражает смелыми именами: дебютанты соседствуют с мэтрами мирового кино.",
-    img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/ea14ff41-4504-4413-b407-89bdddb362c7.jpg",
-  },
-  {
-    id: 2,
-    date: "6 апреля 2026",
-    tag: "Релизы",
-    title: "Вышел трейлер нового фильма Пола Томаса Андерсона",
-    excerpt: "Режиссёр «Нефти» и «Мастера» возвращается с камерной историей о музыканте в Лос-Анджелесе 70-х.",
-    img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/1a2431a1-fa97-4220-a445-6d032f4a5360.jpg",
-  },
-  {
-    id: 3,
-    date: "4 апреля 2026",
-    tag: "Рецензии",
-    title: "«Зло не существует» Хамагути: разбор финала",
-    excerpt: "Почему открытый финал японского мастера — это не слабость, а высшая форма кинематографического высказывания.",
-    img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/42778e18-fad7-4c80-8a0e-8aa24f9cad02.jpg",
-  },
-];
+
 
 
 
@@ -919,17 +895,19 @@ export default function Index() {
           <button
             className="font-body hidden md:flex items-center gap-2"
             style={{ color: "#D4AF37", fontSize: 13, letterSpacing: "0.08em", background: "none", border: "none", cursor: "pointer" }}
+            onClick={() => navigate("/news")}
           >
             Все новости <Icon name="ArrowRight" size={16} />
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {news.map((item) => (
+          {newsItems.slice(0, 3).map((item) => (
             <div
               key={item.id}
               className="card-hover cursor-pointer rounded-sm overflow-hidden"
               style={{ background: "#141414", border: "1px solid #2A2A2A", display: "flex", flexDirection: "column" }}
+              onClick={() => navigate(`/news/${item.slug}`)}
             >
               <div className="relative overflow-hidden" style={{ height: 180 }}>
                 <img
@@ -982,6 +960,7 @@ export default function Index() {
                     letterSpacing: "0.04em",
                     padding: 0,
                   }}
+                  onClick={(e) => { e.stopPropagation(); navigate(`/news/${item.slug}`); }}
                 >
                   Читать <Icon name="ArrowRight" size={14} />
                 </button>
