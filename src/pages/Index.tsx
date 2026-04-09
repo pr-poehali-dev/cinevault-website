@@ -82,7 +82,21 @@ const news = [
   },
 ];
 
-const navLinks = ["Главная", "Подборки", "Рецензии", "Новости"];
+const genres = [
+  { name: "Триллеры", icon: "🔪", count: 87 },
+  { name: "Драмы", icon: "🎭", count: 134 },
+  { name: "Ужасы", icon: "👻", count: 62 },
+  { name: "Фантастика", icon: "🚀", count: 95 },
+  { name: "Комедии", icon: "😄", count: 73 },
+  { name: "Боевики", icon: "💥", count: 110 },
+  { name: "Детективы", icon: "🔍", count: 49 },
+  { name: "Анимация", icon: "✨", count: 58 },
+  { name: "Криминал", icon: "🎩", count: 44 },
+  { name: "Военный", icon: "🎖️", count: 37 },
+  { name: "Фэнтези", icon: "🐉", count: 52 },
+];
+
+const navLinks = ["Главная", "Подборки", "Жанры", "Рецензии", "Новости"];
 
 export default function Index() {
   const [search, setSearch] = useState("");
@@ -502,6 +516,68 @@ export default function Index() {
                 </button>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── ЖАНРЫ ── */}
+      <section
+        className="px-6 md:px-16 py-20"
+        style={{ borderTop: "1px solid #1a1a1a" }}
+      >
+        <div className="flex items-center justify-between mb-10">
+          <div>
+            <div
+              className="font-body mb-2"
+              style={{ color: "#D4AF37", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase" }}
+            >
+              ✦ Все направления
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl gold-line" style={{ fontWeight: 700 }}>
+              Жанры
+            </h2>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          {genres.map((g) => (
+            <button
+              key={g.name}
+              className="card-hover text-left cursor-pointer rounded-sm"
+              style={{
+                background: "#141414",
+                border: "1px solid #2A2A2A",
+                padding: "20px 18px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+                transition: "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-4px)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "#D4AF37";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 12px 30px rgba(212,175,55,0.12)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "#2A2A2A";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
+              }}
+            >
+              <span style={{ fontSize: 26 }}>{g.icon}</span>
+              <span
+                className="font-display"
+                style={{ fontSize: 15, fontWeight: 600, color: "#fff", lineHeight: 1.2 }}
+              >
+                {g.name}
+              </span>
+              <span
+                className="font-body"
+                style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", letterSpacing: "0.04em" }}
+              >
+                {g.count} фильмов
+              </span>
+            </button>
           ))}
         </div>
       </section>
