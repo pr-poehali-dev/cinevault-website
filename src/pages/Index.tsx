@@ -2,38 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { genres } from "@/data/genres";
-
-const HERO_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/0e25810d-e02e-44a1-bb9b-83a7a0354af8.jpg";
-const WEEK_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/06b44759-748e-4a19-8732-4c64e1365f3f.jpg";
-const NOIR_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/ee289538-68dd-470f-8d6e-ac7a98007c74.jpg";
-const SCI_IMG = "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/029ce885-c123-44ac-9d52-a9b185f01d4a.jpg";
-
-const collections = [
-  {
-    id: 1,
-    title: "Нуар и детектив",
-    desc: "Тёмные улицы, роковые красавицы, частные сыщики — лучший нуар всех времён",
-    img: NOIR_IMG,
-    tags: ["Нуар", "Детектив", "Криминал"],
-    count: 24,
-  },
-  {
-    id: 2,
-    title: "Фантастика / Космос",
-    desc: "Эпические путешествия сквозь звёзды, инопланетные цивилизации и будущее человечества",
-    img: SCI_IMG,
-    tags: ["Sci-Fi", "Фантастика", "Эпик"],
-    count: 31,
-  },
-  {
-    id: 3,
-    title: "Авторское кино",
-    desc: "Висконти, Тарковский, Феллини — великие режиссёры, изменившие язык кино",
-    img: HERO_IMG,
-    tags: ["Арт-хаус", "Авторское", "Классика"],
-    count: 18,
-  },
-];
+import { collections, weeklyCollection } from "@/data/collections";
 
 const reviews = [
   {
@@ -342,6 +311,7 @@ export default function Index() {
           <button
             className="font-body hidden md:flex items-center gap-2"
             style={{ color: "#D4AF37", fontSize: 13, letterSpacing: "0.08em", background: "none", border: "none", cursor: "pointer" }}
+            onClick={() => navigate("/collections")}
           >
             Все подборки <Icon name="ArrowRight" size={16} />
           </button>
@@ -355,10 +325,11 @@ export default function Index() {
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
           }}
+          onClick={() => navigate(`/collections/${weeklyCollection.slug}`)}
         >
           <div className="relative overflow-hidden" style={{ minHeight: 380 }}>
             <img
-              src={WEEK_IMG}
+              src={weeklyCollection.img}
               alt="Подборка недели"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -384,7 +355,7 @@ export default function Index() {
 
           <div className="flex flex-col justify-center p-10 md:p-14">
             <div className="flex gap-2 mb-5 flex-wrap">
-              {["Эпик", "Фантастика", "Экшен"].map((t) => (
+              {weeklyCollection.tags.map((t) => (
                 <span key={t} className="tag-badge">{t}</span>
               ))}
             </div>
@@ -392,13 +363,13 @@ export default function Index() {
               className="font-display mb-4"
               style={{ fontSize: "clamp(1.5rem, 3vw, 2.4rem)", fontWeight: 700, lineHeight: 1.2 }}
             >
-              Великие эпосы большого экрана
+              {weeklyCollection.title}
             </h3>
             <p
               className="font-body mb-8"
               style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.75, fontSize: 15, maxWidth: 440 }}
             >
-              15 монументальных фильмов, которые переосмыслили жанр. От «Лоуренса Аравийского» до «Дюны» — эпическое кино, которое смотрят на большом экране.
+              {weeklyCollection.desc}
             </p>
             <div className="flex items-center gap-6">
               <button
@@ -421,7 +392,7 @@ export default function Index() {
                 Открыть подборку
               </button>
               <span className="font-body" style={{ color: "rgba(255,255,255,0.4)", fontSize: 13 }}>
-                15 фильмов
+                {weeklyCollection.count} фильмов
               </span>
             </div>
           </div>
@@ -445,17 +416,19 @@ export default function Index() {
           <button
             className="font-body hidden md:flex items-center gap-2"
             style={{ color: "#D4AF37", fontSize: 13, letterSpacing: "0.08em", background: "none", border: "none", cursor: "pointer" }}
+            onClick={() => navigate("/collections")}
           >
             Все подборки <Icon name="ArrowRight" size={16} />
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {collections.map((col) => (
+          {collections.slice(1, 4).map((col) => (
             <div
               key={col.id}
               className="card-hover cursor-pointer overflow-hidden rounded-sm"
               style={{ background: "#141414", border: "1px solid #2A2A2A" }}
+              onClick={() => navigate(`/collections/${col.slug}`)}
             >
               <div className="relative overflow-hidden" style={{ height: 220 }}>
                 <img
