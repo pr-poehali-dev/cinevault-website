@@ -951,6 +951,55 @@ export default function Index() {
         </div>
       </section>
 
+      {/* ── SEO TEXT ── */}
+      <section style={{ backgroundColor: "#0A0A0A", padding: "80px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", fontFamily: "'Inter', sans-serif", fontSize: 15, lineHeight: 1.8 }}>
+          <h2 style={{ color: "#999999", fontFamily: "'Inter', sans-serif", fontSize: 20, fontWeight: 600, marginBottom: 16 }}>
+            Что посмотреть — подборки фильмов и рецензии на лучшее кино
+          </h2>
+          <p style={{ color: "#666666", marginBottom: 24 }}>
+            <strong style={{ color: "#888" }}>CineVault</strong> — это кино-гид для тех, кто устал листать бесконечные каталоги стриминговых сервисов и хочет смотреть только лучшее. Мы создали пространство, где каждый фильм заслуживает вашего внимания, каждая подборка собрана вручную, а каждая рецензия написана честно и по существу.
+          </p>
+
+          <h3 style={{ color: "#999999", fontFamily: "'Inter', sans-serif", fontSize: 17, fontWeight: 600, marginBottom: 12 }}>
+            Подборки фильмов на любой вечер
+          </h3>
+          <p style={{ color: "#666666", marginBottom: 16 }}>
+            Не знаете, <strong style={{ color: "#888" }}>что посмотреть</strong>? У нас десятки тематических подборок: от <strong style={{ color: "#888" }}>лучших триллеров</strong> с неожиданной развязкой до <strong style={{ color: "#888" }}>тихих драм</strong>, которые остаются с вами надолго. Мы отбираем фильмы по жанрам, настроению и платформам — <strong style={{ color: "#888" }}>Netflix</strong>, Кинопоиск, Apple TV+, чтобы вы нашли идеальное кино за пару минут.
+          </p>
+          <p style={{ color: "#666666", marginBottom: 24 }}>
+            Среди наших подборок: <strong style={{ color: "#888" }}>лучшие фильмы 2025 года</strong>, <strong style={{ color: "#888" }}>недооценённые шедевры</strong>, которые прошли мимо широкой аудитории, <strong style={{ color: "#888" }}>корейское кино</strong>, покорившее мир после «Паразитов», и <strong style={{ color: "#888" }}>авторское кино</strong> от студий <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>A24</a>, NEON и Mubi.
+          </p>
+
+          <h3 style={{ color: "#999999", fontFamily: "'Inter', sans-serif", fontSize: 17, fontWeight: 600, marginBottom: 12 }}>
+            Честные рецензии на новинки кино
+          </h3>
+          <p style={{ color: "#666666", marginBottom: 16 }}>
+            Наши <strong style={{ color: "#888" }}>рецензии</strong> — это не пересказ сюжета. Мы разбираем режиссёрские решения, актёрские работы, визуальный стиль и саундтрек. Будь то <strong style={{ color: "#888" }}>новинки кино 2026</strong>, оскаровские номинанты или культовая классика — мы даём честную оценку без спойлеров.
+          </p>
+          <p style={{ color: "#666666", marginBottom: 24 }}>
+            Каждый фильм получает рейтинг по пятибалльной шкале, подробный разбор и рекомендацию: кому стоит смотреть, а кому лучше выбрать другой фильм из наших подборок.
+          </p>
+
+          <h3 style={{ color: "#999999", fontFamily: "'Inter', sans-serif", fontSize: 17, fontWeight: 600, marginBottom: 12 }}>
+            Трейлеры и новости кинематографа
+          </h3>
+          <p style={{ color: "#666666", marginBottom: 24 }}>
+            Следим за главными анонсами: разборы <strong style={{ color: "#888" }}>новых трейлеров</strong>, новости со съёмочных площадок, обзоры кинофестивалей <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>Канны</a>, Венеция, Берлинале и подготовка к церемонии <strong style={{ color: "#888" }}>Оскар 2025</strong>. Всё кратко, по делу и без жёлтых заголовков.
+          </p>
+
+          <h3 style={{ color: "#999999", fontFamily: "'Inter', sans-serif", fontSize: 17, fontWeight: 600, marginBottom: 12 }}>
+            Жанры и настроение
+          </h3>
+          <p style={{ color: "#666666", marginBottom: 16 }}>
+            Ищете конкретный жанр? У нас удобная навигация по категориям: <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>триллеры</a>, <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>драмы</a>, <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>ужасы</a>, <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>фантастика</a>, <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>комедии</a>, <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>боевики</a>, <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>детективы</a>, <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>анимация</a>, <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>документальное кино</a> и <a href="#" style={{ color: "#D4AF37", textDecoration: "none" }}>мелодрамы</a>. Выбирайте настроение — мы подберём фильм.
+          </p>
+          <p style={{ color: "#666666" }}>
+            <strong style={{ color: "#888" }}>CineVault</strong> — кино, достойное вашего времени. Подписывайтесь на рассылку и получайте лучшие подборки раз в неделю.
+          </p>
+        </div>
+      </section>
+
       {/* ── FOOTER ── */}
       <footer className="px-6 md:px-16 py-16" style={{ borderTop: "1px solid #1a1a1a" }}>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
