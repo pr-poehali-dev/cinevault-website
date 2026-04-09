@@ -511,6 +511,7 @@ export default function Index() {
           <button
             className="font-body hidden md:flex items-center gap-2"
             style={{ color: "#D4AF37", fontSize: 13, letterSpacing: "0.08em", background: "none", border: "none", cursor: "pointer" }}
+            onClick={() => navigate("/trailers")}
           >
             Все трейлеры <Icon name="ArrowRight" size={16} />
           </button>

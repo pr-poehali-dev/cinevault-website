@@ -9,6 +9,7 @@ import GenrePage from "./pages/GenrePage";
 import SeriesPage from "./pages/SeriesPage";
 import CollectionsPage from "./pages/CollectionsPage";
 import CollectionPage from "./pages/CollectionPage";
+import TrailersPage from "./pages/TrailersPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/series" element={<SeriesPage />} />
           <Route path="/collections" element={<CollectionsPage />} />
           <Route path="/collections/:slug" element={<CollectionPage />} />
+          <Route path="/trailers" element={<TrailersPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
