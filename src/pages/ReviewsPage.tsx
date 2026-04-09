@@ -167,77 +167,83 @@ export default function ReviewsPage() {
         </div>
       </div>
 
-      {/* ── СПИСОК РЕЦЕНЗИЙ ── */}
+      {/* ── СЕТКА РЕЦЕНЗИЙ ── */}
       <div style={{ padding: "0 24px 60px", maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {filtered.map((rev, i) => (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
+          {filtered.map((rev) => (
             <div
               key={rev.id}
               onClick={() => navigate(`/reviews/${rev.slug}`)}
               style={{
-                display: "grid",
-                gridTemplateColumns: "220px 1fr auto",
-                alignItems: "center",
-                gap: 0,
-                borderBottom: "1px solid #141414",
-                padding: "20px 0",
+                background: "#111",
+                border: "1px solid #1e1e1e",
+                borderRadius: 3,
+                overflow: "hidden",
                 cursor: "pointer",
-                borderRadius: 2,
-                transition: "background 0.15s, padding 0.15s",
+                transition: "border-color 0.2s, transform 0.2s",
+                display: "flex",
+                flexDirection: "column",
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#111";
-                e.currentTarget.style.paddingLeft = "12px";
-                e.currentTarget.style.paddingRight = "12px";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.paddingLeft = "0";
-                e.currentTarget.style.paddingRight = "0";
-              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(212,175,55,0.35)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#1e1e1e"; e.currentTarget.style.transform = "translateY(0)"; }}
             >
               {/* Постер */}
-              <div style={{ position: "relative", width: 200, height: 120, overflow: "hidden", borderRadius: 2, flexShrink: 0 }}>
-                <img src={rev.img} alt={rev.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 60%, #0A0A0A 100%)" }} />
+              <div style={{ position: "relative", height: 240, overflow: "hidden", flexShrink: 0 }}>
+                <img
+                  src={rev.img}
+                  alt={rev.title}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
+                  onMouseEnter={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1.04)")}
+                  onMouseLeave={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1)")}
+                />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #111 0%, transparent 55%)" }} />
+                {/* Рейтинг */}
+                <div style={{ position: "absolute", top: 10, right: 10, display: "flex", gap: 1 }}>
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <span key={s} style={{ color: s < rev.rating ? "#D4AF37" : "rgba(255,255,255,0.12)", fontSize: 12 }}>★</span>
+                  ))}
+                </div>
+                {/* Жанр */}
+                <div
+                  className="font-body"
+                  style={{
+                    position: "absolute", bottom: 10, left: 10,
+                    background: "rgba(212,175,55,0.12)",
+                    border: "1px solid rgba(212,175,55,0.25)",
+                    color: "#D4AF37", fontSize: 9,
+                    padding: "2px 9px", borderRadius: 2,
+                    letterSpacing: "0.1em", textTransform: "uppercase",
+                  }}
+                >
+                  {rev.genre}
+                </div>
               </div>
 
-              {/* Инфо */}
-              <div style={{ padding: "0 28px" }}>
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
+              {/* Контент */}
+              <div style={{ padding: "16px 18px 20px", flex: 1, display: "flex", flexDirection: "column" }}>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
                   {rev.tags.map((t) => (
                     <span key={t} className="font-body" style={{ fontSize: 9, color: "rgba(212,175,55,0.55)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
                       {t}
                     </span>
                   ))}
                 </div>
-                <h2 className="font-display" style={{ fontSize: "clamp(1rem, 1.8vw, 1.2rem)", fontWeight: 600, lineHeight: 1.25, marginBottom: 6 }}>
+                <h2 className="font-display" style={{ fontSize: "1.05rem", fontWeight: 700, lineHeight: 1.25, marginBottom: 6 }}>
                   {rev.title}
-                  <span className="font-body" style={{ fontSize: 12, color: "rgba(255,255,255,0.2)", fontWeight: 400, marginLeft: 10 }}>
-                    {rev.originalTitle}
-                  </span>
                 </h2>
-                <div className="font-body" style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", marginBottom: 8 }}>
+                <div className="font-body" style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginBottom: 10 }}>
                   {rev.director} · {rev.year} · {rev.duration}
                 </div>
-                <p className="font-body" style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.65, maxWidth: 500 }}>
+                <p className="font-body" style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", lineHeight: 1.7, flex: 1, marginBottom: 14 }}>
                   {rev.excerpt}
                 </p>
-              </div>
-
-              {/* Рейтинг и дата */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8, minWidth: 100, paddingLeft: 16 }}>
-                <div style={{ display: "flex", gap: 2 }}>
-                  {Array.from({ length: 5 }).map((_, s) => (
-                    <span key={s} style={{ color: s < rev.rating ? "#D4AF37" : "rgba(255,255,255,0.1)", fontSize: 13 }}>★</span>
-                  ))}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <span className="font-body" style={{ fontSize: 10, color: "rgba(255,255,255,0.2)" }}>{rev.date}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: 5, color: "#D4AF37" }}>
+                    <span className="font-body" style={{ fontSize: 12 }}>Читать</span>
+                    <Icon name="ArrowRight" size={12} style={{ color: "#D4AF37" }} />
+                  </div>
                 </div>
-                <span className="font-body" style={{ fontSize: 10, color: "rgba(255,255,255,0.2)", textAlign: "right" }}>
-                  {rev.date}
-                </span>
-                <span className="font-body" style={{ fontSize: 10, color: "rgba(255,255,255,0.15)" }}>
-                  #{String(i + 1).padStart(2, "0")}
-                </span>
               </div>
             </div>
           ))}

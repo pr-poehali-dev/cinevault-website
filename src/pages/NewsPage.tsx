@@ -20,7 +20,7 @@ export default function NewsPage() {
     ? newsItems
     : newsItems.filter((n) => n.tag === activeTag);
 
-  const [featured, ...rest] = filtered;
+
 
   return (
     <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#fff" }}>
@@ -96,136 +96,69 @@ export default function NewsPage() {
       </div>
 
       <div style={{ padding: "0 24px 60px", maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
+          {filtered.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => navigate(`/news/${item.slug}`)}
+              style={{
+                background: "#111",
+                border: "1px solid #1e1e1e",
+                borderRadius: 3,
+                overflow: "hidden",
+                cursor: "pointer",
+                transition: "border-color 0.2s, transform 0.2s",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(212,175,55,0.35)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#1e1e1e"; e.currentTarget.style.transform = "translateY(0)"; }}
+            >
+              {/* Картинка */}
+              <div style={{ position: "relative", height: 200, overflow: "hidden", flexShrink: 0 }}>
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
+                  onMouseEnter={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1.04)")}
+                  onMouseLeave={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1)")}
+                />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #111 0%, transparent 60%)" }} />
+                <span
+                  className="font-body"
+                  style={{
+                    position: "absolute", top: 10, left: 10,
+                    background: "rgba(212,175,55,0.12)",
+                    border: "1px solid rgba(212,175,55,0.3)",
+                    color: "#D4AF37",
+                    fontSize: 9, padding: "3px 10px",
+                    borderRadius: 2, letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {item.tag}
+                </span>
+              </div>
 
-        {/* ── FEATURED ── */}
-        {featured && (
-          <div
-            onClick={() => navigate(`/news/${featured.slug}`)}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              background: "#111",
-              border: "1px solid #1e1e1e",
-              borderRadius: 3,
-              overflow: "hidden",
-              cursor: "pointer",
-              marginBottom: 48,
-              transition: "border-color 0.2s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(212,175,55,0.3)")}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#1e1e1e")}
-          >
-            <div style={{ position: "relative", minHeight: 320, overflow: "hidden" }}>
-              <img
-                src={featured.img}
-                alt={featured.title}
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.6)" }}
-              />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 50%, #111 100%)" }} />
-              <span
-                className="font-body"
-                style={{
-                  position: "absolute", top: 16, left: 16,
-                  background: "rgba(212,175,55,0.15)",
-                  border: "1px solid rgba(212,175,55,0.35)",
-                  color: "#D4AF37",
-                  fontSize: 10, padding: "3px 10px",
-                  borderRadius: 2, letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {featured.tag}
-              </span>
+              {/* Контент */}
+              <div style={{ padding: "16px 18px 20px", flex: 1, display: "flex", flexDirection: "column" }}>
+                <div className="font-body" style={{ fontSize: 10, color: "rgba(255,255,255,0.25)", marginBottom: 10 }}>
+                  {item.date} · {item.readTime} чтения
+                </div>
+                <h3 className="font-display" style={{ fontSize: "1.05rem", fontWeight: 700, lineHeight: 1.3, marginBottom: 10, flex: 1 }}>
+                  {item.title}
+                </h3>
+                <p className="font-body" style={{ fontSize: 12, color: "rgba(255,255,255,0.42)", lineHeight: 1.7, marginBottom: 14 }}>
+                  {item.excerpt}
+                </p>
+                <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                  <span className="font-body" style={{ fontSize: 12, color: "#D4AF37" }}>Читать</span>
+                  <Icon name="ArrowRight" size={12} style={{ color: "#D4AF37" }} />
+                </div>
+              </div>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "36px 40px" }}>
-              <div className="font-body" style={{ fontSize: 11, color: "rgba(255,255,255,0.25)", letterSpacing: "0.08em", marginBottom: 16 }}>
-                {featured.date} · {featured.readTime} чтения
-              </div>
-              <h2 className="font-display" style={{ fontSize: "clamp(1.2rem, 2vw, 1.6rem)", fontWeight: 700, lineHeight: 1.25, marginBottom: 14 }}>
-                {featured.title}
-              </h2>
-              <p className="font-body" style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.75, marginBottom: 24 }}>
-                {featured.excerpt}
-              </p>
-              <div style={{ display: "flex", alignItems: "center", gap: 6, color: "#D4AF37" }}>
-                <span className="font-body" style={{ fontSize: 13, letterSpacing: "0.06em" }}>Читать</span>
-                <Icon name="ArrowRight" size={14} style={{ color: "#D4AF37" }} />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ── ОСТАЛЬНЫЕ НОВОСТИ — горизонтальные карточки ── */}
-        {rest.length > 0 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            {rest.map((item, i) => (
-              <div
-                key={item.id}
-                onClick={() => navigate(`/news/${item.slug}`)}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "200px 1fr auto",
-                  alignItems: "center",
-                  borderBottom: "1px solid #141414",
-                  padding: "20px 0",
-                  cursor: "pointer",
-                  borderRadius: 2,
-                  transition: "background 0.15s, padding 0.15s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#111";
-                  e.currentTarget.style.paddingLeft = "12px";
-                  e.currentTarget.style.paddingRight = "12px";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.paddingLeft = "0";
-                  e.currentTarget.style.paddingRight = "0";
-                }}
-              >
-                {/* Картинка */}
-                <div style={{ position: "relative", width: 180, height: 100, overflow: "hidden", borderRadius: 2, flexShrink: 0 }}>
-                  <img src={item.img} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", filter: "brightness(0.75)" }} />
-                  <span
-                    className="font-body"
-                    style={{
-                      position: "absolute", top: 6, left: 6,
-                      background: "rgba(10,10,10,0.8)",
-                      border: "1px solid rgba(212,175,55,0.25)",
-                      color: "#D4AF37",
-                      fontSize: 8, padding: "2px 7px",
-                      borderRadius: 1, letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {item.tag}
-                  </span>
-                </div>
-
-                {/* Текст */}
-                <div style={{ padding: "0 28px" }}>
-                  <div className="font-body" style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: "0.06em", marginBottom: 8 }}>
-                    {item.date} · {item.readTime} чтения
-                  </div>
-                  <h3 className="font-display" style={{ fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)", fontWeight: 600, lineHeight: 1.3, marginBottom: 8 }}>
-                    {item.title}
-                  </h3>
-                  <p className="font-body" style={{ fontSize: 13, color: "rgba(255,255,255,0.38)", lineHeight: 1.65, maxWidth: 520 }}>
-                    {item.excerpt}
-                  </p>
-                </div>
-
-                {/* Номер + стрелка */}
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12, minWidth: 60, paddingLeft: 16 }}>
-                  <Icon name="ArrowRight" size={14} style={{ color: "rgba(212,175,55,0.4)" }} />
-                  <span className="font-body" style={{ fontSize: 10, color: "rgba(255,255,255,0.12)" }}>
-                    #{String(i + 2).padStart(2, "0")}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+          ))}
+        </div>
 
         {filtered.length === 0 && (
           <div style={{ textAlign: "center", padding: "60px 0" }}>
