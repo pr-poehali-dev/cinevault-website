@@ -65,6 +65,7 @@ const news = [
     tag: "Фестивали",
     title: "Канны 2026: объявлена программа основного конкурса",
     excerpt: "В этом году конкурс поражает смелыми именами: дебютанты соседствуют с мэтрами мирового кино.",
+    img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/ea14ff41-4504-4413-b407-89bdddb362c7.jpg",
   },
   {
     id: 2,
@@ -72,6 +73,7 @@ const news = [
     tag: "Релизы",
     title: "Вышел трейлер нового фильма Пола Томаса Андерсона",
     excerpt: "Режиссёр «Нефти» и «Мастера» возвращается с камерной историей о музыканте в Лос-Анджелесе 70-х.",
+    img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/1a2431a1-fa97-4220-a445-6d032f4a5360.jpg",
   },
   {
     id: 3,
@@ -79,6 +81,7 @@ const news = [
     tag: "Рецензии",
     title: "«Зло не существует» Хамагути: разбор финала",
     excerpt: "Почему открытый финал японского мастера — это не слабость, а высшая форма кинематографического высказывания.",
+    img: "https://cdn.poehali.dev/projects/4c6193da-9184-47af-906c-2ccba1394f45/files/42778e18-fad7-4c80-8a0e-8aa24f9cad02.jpg",
   },
 ];
 
@@ -787,47 +790,68 @@ export default function Index() {
           </button>
         </div>
 
-        <div className="flex flex-col">
-          {news.map((item, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {news.map((item) => (
             <div
               key={item.id}
-              className="cursor-pointer"
-              style={{
-                padding: "24px 0",
-                borderBottom: idx < news.length - 1 ? "1px solid #1e1e1e" : "none",
-                transition: "padding-left 0.3s ease",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLDivElement).style.paddingLeft = "8px")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLDivElement).style.paddingLeft = "0px")}
+              className="card-hover cursor-pointer rounded-sm overflow-hidden"
+              style={{ background: "#141414", border: "1px solid #2A2A2A", display: "flex", flexDirection: "column" }}
             >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                <div className="flex items-center gap-4 flex-wrap">
-                  <span
-                    className="tag-badge font-body flex-shrink-0"
-                    style={{ color: "#D4AF37", borderColor: "rgba(212,175,55,0.3)" }}
-                  >
-                    {item.tag}
-                  </span>
-                  <h3
-                    className="font-display text-lg md:text-xl"
-                    style={{ fontWeight: 600, transition: "color 0.2s" }}
-                  >
-                    {item.title}
-                  </h3>
-                </div>
+              <div className="relative overflow-hidden" style={{ height: 180 }}>
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                  style={{ transition: "transform 0.5s ease" }}
+                  onMouseEnter={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1.05)")}
+                  onMouseLeave={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1)")}
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(to top, #141414 0%, transparent 60%)" }}
+                />
                 <span
-                  className="font-body flex-shrink-0"
-                  style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, letterSpacing: "0.06em" }}
+                  className="tag-badge font-body absolute top-3 left-3"
+                  style={{ color: "#D4AF37", borderColor: "rgba(212,175,55,0.4)", background: "rgba(10,10,10,0.7)" }}
+                >
+                  {item.tag}
+                </span>
+              </div>
+              <div className="p-5 flex flex-col flex-1">
+                <span
+                  className="font-body mb-2 block"
+                  style={{ color: "rgba(255,255,255,0.3)", fontSize: 11, letterSpacing: "0.08em" }}
                 >
                   {item.date}
                 </span>
+                <h3
+                  className="font-display mb-2"
+                  style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.35, color: "#fff" }}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  className="font-body text-sm flex-1"
+                  style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}
+                >
+                  {item.excerpt}
+                </p>
+                <button
+                  className="font-body flex items-center gap-2 mt-4"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#D4AF37",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    cursor: "pointer",
+                    letterSpacing: "0.04em",
+                    padding: 0,
+                  }}
+                >
+                  Читать <Icon name="ArrowRight" size={14} />
+                </button>
               </div>
-              <p
-                className="font-body mt-2"
-                style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, lineHeight: 1.7, maxWidth: 680 }}
-              >
-                {item.excerpt}
-              </p>
             </div>
           ))}
         </div>
